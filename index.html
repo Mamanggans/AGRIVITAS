@@ -48,3 +48,472 @@
 <!-- ================= PHASE 2 — LOCKSCREEN / START MENU ================= -->
 <section id="lockScreen" class="phase lock-screen" aria-label="Layar mulai" hidden>
   <div class="lock-hero" id="lockHero">
+    <img src="logo.png" alt="Logo CircuLoop" class="lock-hero__logo" id="heroLogo">
+    <div class="lock-hero__text">
+      <span class="lock-hero__eyebrow">IRC 44 Jakarta Timur mempersembahkan</span>
+      <h1 class="lock-hero__title">AgriVeritas</h1>
+      <p class="lock-hero__subtitle">Rover penyiram tanaman kendali jarak jauh lewat aplikasi mBot dengan telemetri lahan real-time via VeritasNode</p>
+    </div>
+  </div>
+  <button class="btn-glass btn-glass--start" id="startBtn" type="button">
+    <i class="fa-solid fa-power-off"></i>
+    <span>Mulai Sistem</span>
+  </button>
+  <p class="lock-hint">JMC 2026 &middot; IRC 44 Jakarta Timur</p>
+</section>
+
+<!-- ================= PHASE 3 — MAIN DASHBOARD ================= -->
+<div id="dashboard" class="dashboard" hidden>
+
+  <!-- Top Bar Control Center -->
+  <header class="topbar">
+    <div class="topbar__brand">
+      <img src="logo.png" alt="Logo AgriVeritas" class="topbar__logo">
+      <img src="mtsn44.png" alt="Logo MTsN 44" class="topbar__logo">
+    </div>
+    <div class="topbar__controls">
+      <div class="topbar__clock" id="clock">
+        <i class="fa-regular fa-clock"></i>
+        <span id="clockTime">00:00:00</span>
+        <span class="topbar__clock-zone">WIB</span>
+      </div>
+      <button class="icon-btn" id="audioToggle" type="button" aria-label="Pemutar audio ambient" aria-expanded="false">
+        <i class="fa-solid fa-music"></i>
+      </button>
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Ganti mode tampilan">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+
+    <!-- Ambient Audio Popover -->
+    <div class="audio-panel" id="audioPanel" hidden>
+      <audio id="audioEl" preload="metadata" hidden></audio>
+      <div class="audio-player-header">
+        <div class="audio-player-top">
+          <img src="SSC.jpg" alt="Album Art" class="audio-panel__art" id="audioArt">
+          <div class="audio-player-info">
+            <p class="audio-panel__track" id="audioTrackName">Sweet Sandy Coast</p>
+            <p class="audio-panel__label" id="audioArtist">SupaBuppa</p>
+          </div>
+        </div>
+        <div class="audio-seekbar">
+          <span class="time-current" id="timeCurrent">0:00</span>
+          <input type="range" id="audioScrubBar" class="scrub-bar" value="0" min="0" step="1">
+          <span class="time-total" id="timeTotal">0:00</span>
+        </div>
+        <div class="audio-panel__controls">
+          <button class="icon-btn icon-btn--sm" id="audioPrev" type="button" aria-label="Trek sebelumnya"><i class="fa-solid fa-backward-step"></i></button>
+          <button class="icon-btn icon-btn--play" id="audioPlay" type="button" aria-label="Putar/Jeda"><i class="fa-solid fa-play"></i></button>
+          <button class="icon-btn icon-btn--sm" id="audioNext" type="button" aria-label="Trek berikutnya"><i class="fa-solid fa-forward-step"></i></button>
+        </div>
+      </div>
+      <ul class="audio-panel__list" id="audioList"></ul>
+    </div>
+  </header>
+
+  <!-- Page Viewport -->
+  <main class="viewport" id="viewport">
+
+    <!-- ============ PAGE: BERANDA ============ -->
+    <section class="page" id="page-beranda" data-page="beranda">
+      <div class="page-scroll">
+        <div class="hero-panel glass-panel">
+          <div class="hero-panel__copy">
+            <span class="eyebrow-chip"><i class="fa-solid fa-seedling"></i> Robot Penyiram Tanaman Kendali Jarak Jauh</span>
+            <h1>AgriVeritas</h1>
+            <p>AgriVeritas adalah rover pertanian yang dikendalikan operator lewat aplikasi mBot. Digerakkan Makeblock mCore V1.5 dan empat motor DC TT, robot ini dibawa ke tanaman dari smartphone, lalu pompa airnya dinyalakan lewat Arduino Nano untuk menyiram tepat di titik yang dipilih. Sensor HC-SR04 membaca jarak ke rintangan dan dibaca langsung oleh Arduino Nano, sementara modul tambahan VeritasNode (ESP32 + probe kelembapan tanah) mengirim data lahan ke dashboard AgriCloud:V. Dayanya dari baterai kotak 9V atau powerbank isi ulang.</p>
+            <div class="hero-panel__actions">
+              <button class="btn-solid" data-goto="sirkuit"><i class="fa-solid fa-diagram-project"></i> Lihat Sirkuit</button>
+              <button class="btn-outline" data-goto="simulasi"><i class="fa-solid fa-satellite-dish"></i> Coba Simulasi</button>
+            </div>
+          </div>
+          <div class="hero-panel__media">
+            <img src="hero.jpg" alt="Rover AgriVeritas beroperasi di ladang sayuran" loading="lazy">
+          </div>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card glass-panel">
+            <i class="fa-solid fa-battery-full"></i>
+            <div><span class="stat-card__num">9V</span><span class="stat-card__label">Baterai Kotak / Powerbank</span></div>
+          </div>
+          <div class="stat-card glass-panel">
+            <i class="fa-solid fa-microchip"></i>
+            <div><span class="stat-card__num">mCore V1.5</span><span class="stat-card__label">Makeblock Controller</span></div>
+          </div>
+          <div class="stat-card glass-panel">
+            <i class="fa-solid fa-droplet"></i>
+            <div><span class="stat-card__num">1</span><span class="stat-card__label">Pompa Submersible</span></div>
+          </div>
+          <div class="stat-card glass-panel">
+            <i class="fa-solid fa-gauge-high"></i>
+            <div><span class="stat-card__num">4</span><span class="stat-card__label">Motor DC TT Penggerak</span></div>
+          </div>
+        </div>
+
+        <div class="trigidi-panel glass-panel">
+          <div class="trigidi-panel__copy">
+            <span class="eyebrow-chip"><i class="fa-solid fa-cube"></i> Visualisasi Model</span>
+            <h2>Arsitektur Fisik Rover</h2>
+            <p>Bodi rover berupa boks hitam yang menampung modul elektronik, dengan sensor ultrasonik di bagian depan atas. Empat roda bermotor DC TT dipasang pada kaki pipa siku yang direkatkan dan diikat kabel ties, sehingga bodi terangkat dari tanah dan tetap ringkas untuk dikemudikan lewat aplikasi mBot.</p>
+          </div>
+          <div class="trigidi-panel__media">
+            <img src="trigidi.png" alt="Foto model fisik rover AgriVeritas: boks hitam dengan empat roda pada kaki pipa siku" loading="lazy">
+          </div>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card glass-panel">
+            <div class="feature-card__icon"><i class="fa-solid fa-battery-full"></i></div>
+            <h3>Daya Portabel</h3>
+            <p>Baterai kotak 9V atau powerbank isi ulang menyuplai rover, sehingga bisa dipakai di lahan tanpa kabel listrik.</p>
+          </article>
+          <article class="feature-card glass-panel">
+            <div class="feature-card__icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <h3>Kendali Aplikasi mBot</h3>
+            <p>Operator mengemudikan rover dari smartphone, sementara Arduino Nano menyalakan pompa dan membaca HC-SR04 untuk jarak ke rintangan di depan.</p>
+          </article>
+          <article class="feature-card glass-panel">
+            <div class="feature-card__icon"><i class="fa-solid fa-chart-line"></i></div>
+            <h3>Telemetri VeritasNode</h3>
+            <p>Modul VeritasNode (ESP32 + probe tanah) mengirim data kelembapan tanah ke dashboard AgriCloud:V secara real-time untuk membantu operator memutuskan kapan perlu menyiram.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE: MISI & SDGs ============ -->
+    <section class="page" id="page-misi" data-page="misi">
+      <div class="page-scroll">
+        <header class="page-head">
+          <span class="eyebrow-chip"><i class="fa-solid fa-earth-asia"></i> Dampak Berkelanjutan</span>
+          <h2>Misi &amp; Tujuan Pembangunan Berkelanjutan</h2>
+          <p>AgriVeritas dirancang untuk membantu penyiraman lahan lebih tepat sasaran dan hemat air lewat robot yang dikendalikan dari aplikasi.</p>
+        </header>
+
+        <div class="sdg-stack">
+          <article class="sdg-card">
+            <img src="sdg2.png" alt="SDG 2 - Tanpa Kelaparan">
+            <div class="sdg-card__body">
+              <h3>Tanpa Kelaparan</h3>
+              <p>Operator dapat menyiram tepat di tanaman yang membutuhkan, membantu menjaga hasil panen tetap optimal dan mendukung ketahanan pangan lokal.</p>
+            </div>
+          </article>
+          <article class="sdg-card">
+            <img src="sdg6.png" alt="SDG 6 - Air Bersih dan Sanitasi">
+            <div class="sdg-card__body">
+              <h3>Air Bersih &amp; Sanitasi</h3>
+              <p>Data sensor kelembapan tanah membantu operator menyiram secukupnya saja, sehingga air tidak terbuang dibanding menyiram tanpa acuan.</p>
+            </div>
+          </article>
+          <article class="sdg-card">
+            <img src="sdg12.webp" alt="SDG 12 - Konsumsi dan Produksi Bertanggung Jawab">
+            <div class="sdg-card__body">
+              <h3>Konsumsi &amp; Produksi yang Bertanggung Jawab</h3>
+              <p>Powerbank isi ulang mengurangi limbah baterai sekali pakai, dan penyiraman yang terukur mengurangi pemborosan air.</p>
+            </div>
+          </article>
+        </div>
+
+        <h3 class="section-subtitle">Pertanyaan Seputar Penerapan di Lapangan</h3>
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion__item">
+            <button class="accordion__trigger" type="button" aria-expanded="false">
+              <span>Siapa yang menentukan kapan rover menyiram?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="accordion__panel">
+              <p>Operator. Rover tidak menyiram otomatis: perintah pompa diteruskan dari aplikasi mBot ke Arduino Nano yang mengendalikan pompa. Sebagai acuan, probe soil moisture pada VeritasNode membaca kadar air tanah dan hasilnya tampil di dashboard AgriCloud:V.</p>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger" type="button" aria-expanded="false">
+              <span>Apa sumber daya rover?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="accordion__panel">
+              <p>Rover memakai baterai kotak 9V (alkaline) atau powerbank isi ulang. Baterai 9V praktis sebagai sumber sekali pakai, sedangkan powerbank bisa diisi ulang dan dipakai berkali-kali.</p>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger" type="button" aria-expanded="false">
+              <span>Bagaimana menghindari tabrakan dengan tanaman?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="accordion__panel">
+              <p>Rover dikemudikan manual lewat aplikasi mBot. Sensor ultrasonik HC-SR04 dibaca oleh Arduino Nano untuk mengukur jarak ke halangan di depan rover sebagai acuan operator agar tanaman muda tetap aman.</p>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button class="accordion__trigger" type="button" aria-expanded="false">
+              <span>Data apa saja yang dikirim ke AgriCloud:V?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="accordion__panel">
+              <p>Modul VeritasNode (ESP32 + probe soil moisture) mengirim data kelembapan tanah secara berkala lewat WiFi agar petani dapat memantau kondisi lahan dari jarak jauh melalui dashboard AgriCloud:V.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE: SIRKUIT ============ -->
+    <section class="page" id="page-sirkuit" data-page="sirkuit">
+      <div class="page-scroll">
+        <header class="page-head">
+          <span class="eyebrow-chip"><i class="fa-solid fa-diagram-project"></i> Skema Elektronik</span>
+          <h2 id="blueprintTitle">Peta Sirkuit Utama</h2>
+          <p id="blueprintDesc">Diagram alur daya dan sinyal yang menghubungkan sensor, kontroler, dan aktuator inti pada AgriVeritas. Klik simpul untuk melihat detail.</p>
+        </header>
+
+        <div class="blueprint-toggle-row">
+          <div class="circuit-legend">
+            <span><i class="legend-dot legend-dot--power"></i> Jalur Daya</span>
+            <span><i class="legend-dot legend-dot--signal"></i> Jalur Sinyal</span>
+          </div>
+          <button class="btn-outline blueprint-toggle" id="blueprintToggle" type="button">
+            <i class="fa-solid fa-gear"></i>
+            <span id="blueprintToggleLabel">Lihat Blueprint VeritasNode</span>
+          </button>
+        </div>
+
+        <div class="glass-panel circuit-panel">
+          <div id="circuitSvgWrap" class="circuit-svg-wrap"></div>
+        </div>
+
+        <div class="circuit-detail glass-panel" id="circuitDetail" hidden>
+          <button class="circuit-detail__close" id="circuitDetailClose" type="button" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+          <h4 id="circuitDetailTitle"></h4>
+          <p id="circuitDetailBody"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE: KOMPONEN ============ -->
+    <section class="page" id="page-komponen" data-page="komponen">
+      <div class="page-scroll">
+        <header class="page-head">
+          <span class="eyebrow-chip"><i class="fa-solid fa-layer-group"></i> Rincian Perangkat Keras</span>
+          <h2 id="componentsTitle">Komponen Hardware Utama</h2>
+          <p id="componentsDesc">Spesifikasi teknis setiap modul yang membangun sistem inti AgriVeritas.</p>
+        </header>
+        <div class="blueprint-toggle-row">
+          <span></span>
+          <button class="btn-outline blueprint-toggle" id="veritasComponentsToggle" type="button">
+            <i class="fa-solid fa-gear"></i>
+            <span id="veritasComponentsToggleLabel">Lihat Komponen VeritasNode</span>
+          </button>
+        </div>
+        <div class="component-grid-wrap">
+          <div class="component-grid" id="componentGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE: SIMULASI ============ -->
+    <section class="page" id="page-simulasi" data-page="simulasi">
+      <div class="page-scroll">
+        <header class="page-head">
+          <span class="eyebrow-chip"><i class="fa-solid fa-satellite-dish"></i> Simulasi &amp; IoT Cloud</span>
+          <h2>Simulasi &amp; Dashboard VeritasNode</h2>
+          <p>Tonton video demonstrasi lapangan AgriVeritas, lalu lihat bagaimana kondisi tanah memengaruhi pembacaan dashboard IoT VeritasNode.</p>
+        </header>
+
+        <div class="sim-layout">
+          <div class="glass-panel sim-video-panel">
+            <div class="sim-video" id="simVideo">
+              <video id="simVideoPlayer" controls playsinline preload="none" aria-label="Video simulasi lapangan AgriVeritas">
+                <source src="vidi.mp4" type="video/mp4">
+                Browser Anda tidak mendukung pemutaran video HTML5.
+              </video>
+              <div class="sim-video__placeholder">
+                <i class="fa-solid fa-video"></i>
+                <span>Video simulasi lapangan akan segera hadir</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="sim-sidebar">
+            <div class="glass-panel iot-dashboard">
+              <h4><i class="fa-solid fa-wifi"></i> Soil Moisture IoT Dashboard</h4>
+              <div class="iot-dashboard__wifi">
+                <span><i class="fa-solid fa-wifi"></i> SSID: <strong>Hotspot</strong></span>
+                <span><i class="fa-solid fa-lock"></i> Kata Sandi: <strong>123445678</strong></span>
+              </div>
+              <div class="iot-dashboard__reading" id="soilConditionTrigger">
+                <span class="iot-dashboard__value" id="iotSoilValue">62%</span>
+                <span class="iot-dashboard__state" id="iotSoilState">Tanah Basah</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="how-it-works-section">
+          <h3 class="section-subtitle centered-title"><i class="fa-solid fa-gears"></i> Bagaimana AgriVeritas Bekerja?</h3>
+          
+          <div class="steps-grid-clean">
+            <div class="step-card-clean glass-panel">
+              <div class="step-card-clean__num">1</div>
+              <div class="step-card-clean__text">
+                <h4>Mengemudikan Rover dari Aplikasi</h4>
+                <p>Operator menghubungkan smartphone ke mCore V1.5 lewat Bluetooth, lalu mengemudikan rover menuju area tanaman menggunakan aplikasi mBot.</p>
+              </div>
+            </div>
+
+            <div class="step-card-clean glass-panel">
+              <div class="step-card-clean__num">2</div>
+              <div class="step-card-clean__text">
+                <h4>Menentukan Titik Tanaman</h4>
+                <p>Operator sendiri yang menghentikan rover di dekat tanaman yang ingin dirawat, dibantu pembacaan jarak dari sensor ultrasonik HC-SR04 yang diproses oleh Arduino Nano.</p>
+              </div>
+            </div>
+
+            <div class="step-card-clean glass-panel">
+              <div class="step-card-clean__num">3</div>
+              <div class="step-card-clean__text">
+                <h4>Pengukuran Kadar Air Tanah</h4>
+                <p>Probe soil moisture pada modul VeritasNode membaca kadar air di sekitar perakaran dan hasilnya tampil di dashboard AgriCloud:V sebagai acuan operator.</p>
+              </div>
+            </div>
+
+            <div class="step-card-clean glass-panel">
+              <div class="step-card-clean__num">4</div>
+              <div class="step-card-clean__text">
+                <h4>Penyiraman via Aplikasi</h4>
+                <p>Jika tanah terbaca kering, operator menyalakan pompa lewat aplikasi mBot, yang diteruskan ke Arduino Nano. Air dialirkan dari tangki dan disemprotkan lewat nozzle, lalu pompa dimatikan saat tanah sudah cukup basah.</p>
+              </div>
+            </div>
+
+            <div class="step-card-clean glass-panel">
+              <div class="step-card-clean__num">5</div>
+              <div class="step-card-clean__text">
+                <h4>Transmisi Data Real-Time ke AgriCloud:V</h4>
+                <p>Data kelembapan tanah dikirim nirkabel lewat ESP32 pada VeritasNode ke dashboard AgriCloud:V di smartphone, sehingga hasil penyiraman langsung terpantau.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE: TIM KAMI ============ -->
+    <section class="page" id="page-tim" data-page="tim">
+      <div class="page-scroll">
+        <!-- Tim Kami Section -->
+        <section id="tim" class="team-section">
+          <div class="team-header">
+            <span class="badge">Kredit</span>
+            <h2>Tim Kami</h2>
+            <p>Dua pikiran di balik rancang bangun AgriVeritas.</p>
+          </div>
+
+          <!-- Shared sunburst frame artwork, reused via <use> on each avatar -->
+          <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+            <defs>
+              <linearGradient id="solarAgriGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#10b981"/>
+              </linearGradient>
+              <symbol id="sunAgriFrame" viewBox="0 0 120 120">
+                <g fill="url(#solarAgriGradient)">
+                  <polygon points="101.71,55.04 118.00,60.00 101.71,64.96"/>
+                  <polygon points="101.41,66.99 115.65,76.34 98.62,76.51"/>
+                  <polygon points="97.77,78.38 108.79,91.36 92.40,86.72"/>
+                  <polygon points="91.06,88.27 97.98,103.83 83.56,94.77"/>
+                  <polygon points="81.84,95.88 84.09,112.76 72.81,100.00"/>
+                  <polygon points="70.84,100.58 68.25,117.41 61.03,101.99"/>
+                  <polygon points="58.97,101.99 51.75,117.41 49.16,100.58"/>
+                  <polygon points="47.19,100.00 35.91,112.76 38.16,95.88"/>
+                  <polygon points="36.44,94.77 22.02,103.83 28.94,88.27"/>
+                  <polygon points="27.60,86.72 11.21,91.36 22.23,78.38"/>
+                  <polygon points="21.38,76.51 4.35,76.34 18.59,66.99"/>
+                  <polygon points="18.29,64.96 2.00,60.00 18.29,55.04"/>
+                  <polygon points="18.59,53.01 4.35,43.66 21.38,43.49"/>
+                  <polygon points="22.23,41.62 11.21,28.64 27.60,33.28"/>
+                  <polygon points="28.94,31.73 22.02,16.17 36.44,25.23"/>
+                  <polygon points="38.16,24.12 35.91,7.24 47.19,20.00"/>
+                  <polygon points="49.16,19.42 51.75,2.59 58.97,18.01"/>
+                  <polygon points="61.03,18.01 68.25,2.59 70.84,19.42"/>
+                  <polygon points="72.81,20.00 84.09,7.24 81.84,24.12"/>
+                  <polygon points="83.56,25.23 97.98,16.17 91.06,31.73"/>
+                  <polygon points="92.40,33.28 108.79,28.64 97.77,41.62"/>
+                  <polygon points="98.62,43.49 115.65,43.66 101.41,53.01"/>
+                </g>
+              </symbol>
+            </defs>
+          </svg>
+
+          <div class="team-grid">
+            <!-- Muhammad Hanief -->
+            <div class="team-card glass-panel">
+              <div class="solar-agri-frame">
+                <svg class="frame-ring" viewBox="0 0 120 120" aria-hidden="true"><use href="#sunAgriFrame"></use></svg>
+                <img src="mhaam.png" alt="Muhammad Hanief Arif Al Majidi" class="profile-img">
+              </div>
+              <div class="member-info">
+                <h3>Muhammad Hanief Arif Al Majidi</h3>
+                <span class="role">Perancang Sistem & Perangkat Keras</span>
+                <p>Bertanggung jawab atas arsitektur elektronik, integrasi sensor, dan perangkat keras Rover AgriVeritas.</p>
+              </div>
+            </div>
+
+            <!-- Muhammad Luthfi -->
+            <div class="team-card glass-panel">
+              <div class="solar-agri-frame">
+                <svg class="frame-ring" viewBox="0 0 120 120" aria-hidden="true"><use href="#sunAgriFrame"></use></svg>
+                <img src="mlr.jpeg" alt="Muhammad Luthfi Rakhman" class="profile-img">
+              </div>
+              <div class="member-info">
+                <h3>Muhammad Luthfi Rakhman</h3>
+                <span class="role">Pengembang Perangkat Lunak & IoT</span>
+                <p>Mengembangkan logika kendali, dashboard telemetri, dan konektivitas cloud proyek ini.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Competition Banner -->
+          <div class="competition-banner glass-panel">
+            <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9C6 11.7614 8.23858 14 11 14H13C15.7614 14 18 11.7614 18 9V3H6V9Z"/>
+              <path d="M6 5H3V7C3 8.65685 4.34315 10 6 10"/>
+              <path d="M18 5H21V7C21 8.65685 19.6569 10 18 10"/>
+              <path d="M12 14V18"/>
+              <path d="M8 21H16"/>
+            </svg>
+            <span>Presented for Robo Creative competition at <strong>JMC 2026</strong> by <strong>IRC 44 Jakarta Timur</strong>.</span>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- Custom Circle Cursor Element -->
+  <div class="custom-cursor" id="customCursor"></div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav" aria-label="Navigasi utama">
+    <button class="bottom-nav__item is-active" data-page="beranda" type="button" title="Beranda" aria-label="Beranda">
+      <i class="fa-solid fa-house"></i><span class="sr-only">Beranda</span>
+    </button>
+    <button class="bottom-nav__item" data-page="misi" type="button" title="Misi" aria-label="Misi">
+      <i class="fa-solid fa-earth-asia"></i><span class="sr-only">Misi</span>
+    </button>
+    <button class="bottom-nav__item" data-page="sirkuit" type="button" title="Sirkuit" aria-label="Sirkuit">
+      <i class="fa-solid fa-diagram-project"></i><span class="sr-only">Sirkuit</span>
+    </button>
+    <button class="bottom-nav__item" data-page="komponen" type="button" title="Komponen" aria-label="Komponen">
+      <i class="fa-solid fa-layer-group"></i><span class="sr-only">Komponen</span>
+    </button>
+    <button class="bottom-nav__item" data-page="simulasi" type="button" title="Simulasi" aria-label="Simulasi">
+      <i class="fa-solid fa-satellite-dish"></i><span class="sr-only">Simulasi</span>
+    </button>
+    <button class="bottom-nav__item" data-page="tim" type="button" title="Tim" aria-label="Tim">
+      <i class="fa-solid fa-users"></i><span class="sr-only">Tim</span>
+    </button>
+    <span class="bottom-nav__indicator" id="navIndicator" aria-hidden="true"></span>
+  </nav>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
