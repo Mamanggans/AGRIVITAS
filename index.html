@@ -1,3 +1,4 @@
+
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="id">
@@ -48,7 +49,7 @@
 <!-- ================= PHASE 2 — LOCKSCREEN / START MENU ================= -->
 <section id="lockScreen" class="phase lock-screen" aria-label="Layar mulai" hidden>
   <div class="lock-hero" id="lockHero">
-    <img src="logo.png" alt="Logo CircuLoop" class="lock-hero__logo" id="heroLogo">
+    <img src="logo.png" alt="Logo AgriVeritas" class="lock-hero__logo" id="heroLogo">
     <div class="lock-hero__text">
       <span class="lock-hero__eyebrow">IRC 44 Jakarta Timur mempersembahkan</span>
       <h1 class="lock-hero__title">AgriVeritas</h1>
@@ -70,6 +71,7 @@
     <div class="topbar__brand">
       <img src="logo.png" alt="Logo AgriVeritas" class="topbar__logo">
       <img src="mtsn44.png" alt="Logo MTsN 44" class="topbar__logo">
+      <img src="adi.png" alt="Logo Adiwiyata" class="topbar__logo">    
     </div>
     <div class="topbar__controls">
       <div class="topbar__clock" id="clock">
@@ -157,10 +159,6 @@
             <h2>Arsitektur Fisik Rover</h2>
             <p>Bodi rover berupa boks hitam yang menampung modul elektronik, dengan sensor ultrasonik di bagian depan atas. Empat roda bermotor DC TT dipasang pada kaki pipa siku yang direkatkan dan diikat kabel ties, sehingga bodi terangkat dari tanah dan tetap ringkas untuk dikemudikan lewat aplikasi mBot.</p>
           </div>
-          <div class="trigidi-panel__media">
-            <img src="trigidi.png" alt="Foto model fisik rover AgriVeritas: boks hitam dengan empat roda pada kaki pipa siku" loading="lazy">
-          </div>
-        </div>
 
         <div class="feature-grid">
           <article class="feature-card glass-panel">
@@ -323,8 +321,7 @@
           <div class="glass-panel sim-video-panel">
             <div class="sim-video" id="simVideo">
               <video id="simVideoPlayer" controls playsinline preload="none" aria-label="Video simulasi lapangan AgriVeritas">
-                <source src="vidi.mp4" type="video/mp4">
-                Browser Anda tidak mendukung pemutaran video HTML5.
+                Video simulasi belum tersedia.
               </video>
               <div class="sim-video__placeholder">
                 <i class="fa-solid fa-video"></i>
@@ -340,9 +337,12 @@
                 <span><i class="fa-solid fa-wifi"></i> SSID: <strong>Hotspot</strong></span>
                 <span><i class="fa-solid fa-lock"></i> Kata Sandi: <strong>123445678</strong></span>
               </div>
-              <div class="iot-dashboard__reading" id="soilConditionTrigger">
-                <span class="iot-dashboard__value" id="iotSoilValue">62%</span>
+              <div class="iot-dashboard__reading">
+                <span class="iot-dashboard__value" id="iotSoilValue">💧</span>
                 <span class="iot-dashboard__state" id="iotSoilState">Tanah Basah</span>
+              </div>
+
+                </div>
               </div>
             </div>
           </div>

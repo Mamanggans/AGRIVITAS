@@ -668,23 +668,24 @@ function svgPump() {
    6. Simulation — Video player & Soil Moisture IoT Dashboard
    ========================================================= */
 let simSoilState = 'normal';
-let soilClickCount = 0;
 
 function initSimulation() {
-  // Hidden shortcut: 5 left clicks pada iot-dashboard__reading untuk toggle kondisi tanah
-  const soilTrigger = document.getElementById('soilConditionTrigger');
-  soilTrigger.addEventListener('click', (e) => {
-    if (e.button === 0) { // Left click only
-      soilClickCount++;
-      if (soilClickCount === 5) {
-        simSoilState = simSoilState === 'normal' ? 'kering' : 'normal';
-        soilClickCount = 0;
-        refreshIotDashboard();
-      }
-    }
+  const soilToggle = document.getElementById('soilToggle');
+  soilToggle.addEventListener('click', (e) => {
+    const opt = e.target.closest('.segmented__opt');
+    if (!opt) return;
+    setSegmented('soilToggle', opt);
+    simSoilState = opt.dataset.value;
+    refreshIotDashboard();
   });
 
   refreshIotDashboard();
+}
+
+function setSegmented(groupId, opt) {
+  const group = document.getElementById(groupId);
+  group.querySelectorAll('.segmented__opt').forEach(o => o.classList.remove('is-active'));
+  opt.classList.add('is-active');
 }
 
 function refreshIotDashboard() {
